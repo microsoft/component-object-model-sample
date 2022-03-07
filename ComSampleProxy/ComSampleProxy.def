@@ -1,0 +1,8 @@
+LIBRARY      "ComSampleProxy"
+
+EXPORTS
+    DllCanUnloadNow         PRIVATE
+    DllGetClassObject       PRIVATE
+    GetProxyDllInfo         PRIVATE
+    DllRegisterServer       PRIVATE
+    DllUnregisterServer     PRIVATE

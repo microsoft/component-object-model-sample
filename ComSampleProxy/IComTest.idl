@@ -1,0 +1,13 @@
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+    object,
+    uuid(C0C62619-3BC1-4095-9B9A-84503E37DAA5),
+    version(1.0),
+    helpstring("IComTest interface")
+]
+interface IComTest : IUnknown
+{
+    HRESULT WhoAmI([out] LPWSTR *pwszWhoAmI);
+}
