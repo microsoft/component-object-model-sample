@@ -1,0 +1,8 @@
+; ComSampleServer.def
+LIBRARY       ComSampleServer.dll
+EXPORTS
+    DllGetClassObject   PRIVATE
+    DllCanUnloadNow     PRIVATE
+    DllRegisterServer   PRIVATE
+    DllUnregisterServer PRIVATE
+    DllMain             PRIVATE

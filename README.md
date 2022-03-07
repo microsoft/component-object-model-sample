@@ -1,33 +1,36 @@
-# Project
+# Component Object Model (COM) Sample
+COM is a very powerful technology to componentize software based on based on object oriented design. Please see for the [documentation here](https://docs.microsoft.com/en-us/windows/win32/com/component-object-model--com--portal "documentation here") more details.
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+One of the major drawbacks of COM is the initial boilerplate required to set up the COM component. [ATL](https://docs.microsoft.com/en-us/cpp/atl/active-template-library-atl-concepts?view=msvc-170 "ATL") is a set of libraries that helps build the boiler plate, but comes with its own complexity.
 
-As the maintainer of this project, please make a few updates:
+This sample here provides the skeletal code that would do the heavylifting of COM setup and registration so that developers can focus on the business logic alone rather than worrying about the infrastructure. It does **not use ATL**. Instead it uses simple plain C++ code so that developers can understand and debug the underlying skeleton if required.
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+## Terms used
+- A COM Server is an object that provides the business logic.
+- A COM Client is the code that access the COM Server through any interface exposed by the COM Server.
+- The interaction between the COM Client and COM Server happens via marshaling,and requires a Proxy-Stub DLL.
+- Please see [documentation here](https://docs.microsoft.com/en-us/windows/win32/com/com-clients-and-servers "documentation here") for more details.
 
-## Contributing
+## This project
+Here is the summary about the various directories in this sample.
+- **ComSampleProxy**: ProxyStub DLL. To add a new interface, simply add a new IDL file to the project.
+- **COMSampleServer**: Support for activating the COM Server in-process as well as out-of-process (in a OS provided [DLL Surrogate](https://docs.microsoft.com/en-us/windows/win32/com/dll-surrogates "DLL Surrogate") namely DllHost.exe).
+- **COMSampleService**: Support for activating the COM Server in a LocalSystem Service.
+- **ComSampleClient**: A sample COM Client that calls into, and tests the COM Servers mentioned above.
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+## Creating and registering a new COM Component
+Creating a new COM component is super easy with this model.
+1. **Add your interface**: 
+ - Add a new IDL file with your interface to ComSampleProxy project. See sample file /ComSampleProxy/IComTest.idl.
+2. **Implement your COM class**:
+ - *For in-process activation or out-of-process in surrogate activatation*: Add your class implementation to ComSampleServer project. See example ComSampleServer/CComServerTest.cpp. Now go to ComSampleServer/Dll.cpp and simply add your class entries to "g_Classes".
+ - *For out-of-process activation in a LocalSystem service*: Add your add your class implementation to ComSampleService project. See example ComSampleService/CComServiceTest.cpp. Now go to ComSampleService/Main.cpp and simply add your class entries to "g_Classes".
+3. **Register your COM components**:
+ - Copy ComSampleProxy.dll onto your target machine. From an elevated prompt, run: ***regsvr32 ComSampleProxy.dll***.
+ - *For in-process activation or out-of-process in surrogate activatation*: Copy ComSampleServer.dll onto your target machine. From an elevated prompt, run: ***regsvr32 ComSampleServer.dll***.
+ - *For out-of-process activation in a LocalSystem service*: Copy ComSampleService.exe onto your target machine. From an elevated command prompt, run: ***ComSampleService.exe /RegisterServer***.
 
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
+That is it!
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
-## Trademarks
-
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
+## **Trademarks**
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft trademarks or logos is subject to and must follow[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general). Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship. Any use of third-party trademarks or logos are subject to those third-party's policies.
