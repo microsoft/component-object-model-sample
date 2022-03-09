@@ -1,5 +1,5 @@
 # Component Object Model (COM) Sample
-COM is a very powerful technology to componentize software based on based on object oriented design. Please see [documentation here](https://docs.microsoft.com/en-us/windows/win32/com/component-object-model--com--portal "documentation here") for more details.
+COM is a very powerful technology to componentize software based on object oriented design. Please see [documentation here](https://docs.microsoft.com/en-us/windows/win32/com/component-object-model--com--portal "documentation here") for more details.
 
 One of the major drawbacks of COM is the initial boilerplate required to set up the COM components. [ATL](https://docs.microsoft.com/en-us/cpp/atl/active-template-library-atl-concepts?view=msvc-170 "ATL") is a set of libraries that help build the boilerplate, but comes with its own complexity.
 
