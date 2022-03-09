@@ -1,22 +1,22 @@
 # Component Object Model (COM) Sample
-COM is a very powerful technology to componentize software based on based on object oriented design. Please see for the [documentation here](https://docs.microsoft.com/en-us/windows/win32/com/component-object-model--com--portal "documentation here") more details.
+COM is a very powerful technology to componentize software based on based on object oriented design. Please see [documentation here](https://docs.microsoft.com/en-us/windows/win32/com/component-object-model--com--portal "documentation here") for more details.
 
-One of the major drawbacks of COM is the initial boilerplate required to set up the COM component. [ATL](https://docs.microsoft.com/en-us/cpp/atl/active-template-library-atl-concepts?view=msvc-170 "ATL") is a set of libraries that helps build the boiler plate, but comes with its own complexity.
+One of the major drawbacks of COM is the initial boilerplate required to set up the COM components. [ATL](https://docs.microsoft.com/en-us/cpp/atl/active-template-library-atl-concepts?view=msvc-170 "ATL") is a set of libraries that help build the boilerplate, but comes with its own complexity.
 
 This sample here provides the skeletal code that would do the heavylifting of COM setup and registration so that developers can focus on the business logic alone rather than worrying about the infrastructure. It does **not use ATL**. Instead it uses simple plain C++ code so that developers can understand and debug the underlying skeleton if required.
 
 ## Terms used
 - A COM Server is an object that provides the business logic.
 - A COM Client is the code that access the COM Server through any interface exposed by the COM Server.
-- The interaction between the COM Client and COM Server happens via marshaling,and requires a Proxy-Stub DLL.
+- The interaction between the COM Client and COM Server happens via marshaling, and requires a Proxy-Stub DLL.
 - Please see [documentation here](https://docs.microsoft.com/en-us/windows/win32/com/com-clients-and-servers "documentation here") for more details.
 
 ## This project
 Here is the summary about the various directories in this sample.
 - **ComSampleProxy**: ProxyStub DLL. To add a new interface, simply add a new IDL file to the project.
-- **COMSampleServer**: Support for activating the COM Server in-process as well as out-of-process (in a OS provided [DLL Surrogate](https://docs.microsoft.com/en-us/windows/win32/com/dll-surrogates "DLL Surrogate") namely DllHost.exe).
+- **COMSampleServer**: Support for activating the COM Server in-process as well as out-of-process (in an OS provided [DLL Surrogate](https://docs.microsoft.com/en-us/windows/win32/com/dll-surrogates "DLL Surrogate") namely DllHost.exe).
 - **COMSampleService**: Support for activating the COM Server in a LocalSystem Service.
-- **ComSampleClient**: A sample COM Client that calls into, and tests the COM Servers mentioned above.
+- **ComSampleClient**: A sample COM Client that calls into and tests the COM Servers mentioned above.
 
 ## Creating and registering a new COM Component
 Creating a new COM component is super easy with this model.
