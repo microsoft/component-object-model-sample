@@ -24,7 +24,7 @@ Creating a new COM component is super easy with this model.
  - Add a new IDL file with your interface to ComSampleProxy project. See sample file /ComSampleProxy/IComTest.idl.
 2. **Implement your COM class**:
  - *For in-process activation or out-of-process in surrogate activatation*: Add your class implementation to ComSampleServer project. See example ComSampleServer/CComServerTest.cpp. Now go to ComSampleServer/Dll.cpp and simply add your class entries to "g_Classes".
- - *For out-of-process activation in a LocalSystem service*: Add your add your class implementation to ComSampleService project. See example ComSampleService/CComServiceTest.cpp. Now go to ComSampleService/Main.cpp and simply add your class entries to "g_Classes".
+ - *For out-of-process activation in a LocalSystem service*: Add your class implementation to ComSampleService project. See example ComSampleService/CComServiceTest.cpp. Now go to ComSampleService/Main.cpp and simply add your class entries to "g_Classes".
 3. **Register your COM components**:
  - Copy ComSampleProxy.dll onto your target machine. From an elevated prompt, run: ***regsvr32 ComSampleProxy.dll***.
  - *For in-process activation or out-of-process in surrogate activatation*: Copy ComSampleServer.dll onto your target machine. From an elevated prompt, run: ***regsvr32 ComSampleServer.dll***.
